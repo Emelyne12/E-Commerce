@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+# Full-Stack E-Commerce Platform & Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-grade E-Commerce solution featuring a customer-facing storefront and a secure administrative dashboard. This project implements advanced React patterns, including Role-Based Access Control (RBAC), strict schema validation, and efficient server-state management.
 
-Currently, two official plugins are available:
+**Live Demo:** [View Live Site](https://e-commerce-storefront-admin-dashboa-eight.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### **Storefront (Shopper Experience)**
+* **Dynamic Catalog:** Responsive grid displaying products fetched from a centralized API.
+* **Shopping Cart:** Persistent global state for adding/removing items and managing quantities.
+* **Secure Checkout:** Multi-step checkout process with real-time validation for shipping and payment.
+* **User Profiles:** Order history tracking for authenticated shoppers.
 
-## Expanding the ESLint configuration
+### **Admin Dashboard (Management Experience)**
+* **Inventory Control:** Full CRUD operations for products (Add, Edit, Delete).
+* **Order Management:** Global view of all customer orders with the ability to update fulfillment status (Pending, Shipped, etc.).
+* **Category Management:** Dynamic creation and modification of product categories.
+* **Restricted Access:** Exclusive dashboard access for admin accounts using specialized route guards.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* **Frontend:** React (Vite) + TypeScript
+* **Styling:** Tailwind CSS
+* **State Management:** Context API (Auth/Cart) & TanStack Query (Server State)
+* **Form Handling:** React Hook Form + Zod (Strict Validation)
+* **Networking:** Axios (v1.14.0 - Security Compliant)
+* **Routing:** React Router v6 (Protected Routes)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔐 Administrative Credentials
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+To test the administrative features (Inventory & Order Management), use the following credentials:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Role  | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `admin@admin.com` | `admin123` |
+
+*Note: Standard users can register via the Sign-Up page to access shopper-specific features like checkout and order history.*
+
+---
+
+## 🏗️ Architectural Highlights
+
+### **1. Role-Based Authentication (RBAC)**
+Implemented using a global `AuthContext` to manage user sessions. Access is controlled via specialized route wrappers:
+* `<UserRoute>`: Ensures only authenticated shoppers can reach checkout.
+* `<AdminRoute>`: Redirects non-admin users away from sensitive management views.
+
+### **2. Performance Optimization**
+Used **TanStack Query** for:
+* Caching product catalogs and categories to reduce API overhead.
+* Automatic cache invalidation (refetching) after Admin updates or product deletions.
+* Managing loading and error states across the UI.
+
+### **3. Strict Form Validation**
+Leveraged **Zod** schemas to enforce business rules:
+* Descriptions must be $\ge 20$ characters.
+* Prices must be positive; Stock must be non-negative integers.
+* Phone numbers are strictly validated via Regex: `/^\d{10}$/`.
+
+---
+
+## 💻 Local Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/](https://github.com/)[gatesikev]/[E-Commerce-Storefront-Admin-Dashboard-Platform].git
+    cd [E-Commerce-Storefront-Admin-Dashboard-Platform]
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Build for production:**
+    ```bash
+    npm run build
+    ```
+
+---
+
+## 📄 License
+This project was developed as part of a technical assignment to demonstrate proficiency in React, TypeScript, and API integration.
